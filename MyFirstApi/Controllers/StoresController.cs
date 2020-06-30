@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyApi.Entity;
 using MyFirstApi.Service;
-
+using System.Data.SqlClient;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,7 +27,13 @@ namespace MyFirstApi.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            throw new NotImplementedException();
+            StoreService MyService = new StoreService();
+            Store myStore = MyService.GetStore(id);
+
+            if (myStore == null)
+                return "";
+            else
+                return myStore.Name;
         }
 
         // POST api/<StoresController>
