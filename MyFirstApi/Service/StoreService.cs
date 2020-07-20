@@ -87,5 +87,23 @@ namespace MyFirstApi.Service
 
             return null;
         }
+
+        public Boolean UpdateName(int id, String name)
+        {
+            using (SqlConnection db = new SqlConnection())
+            {
+                db.ConnectionString = "Server=tcp:waldoserver.database.windows.net,1433;Initial Catalog=waldo;Persist Security Info=False;User ID=waldo;Password=1234@terp;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                db.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Store");
+                cmd.Connection = db;
+                cmd.CommandText = "UPDATE Store SET Name = @Name WHERE StoreId = @Id";
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@Id", DbType = System.Data.DbType.Int32, Value = id });
+                cmd.Parameters.Add(new SqlParameter { ParameterName = "@Name", DbType = System.Data.DbType.String, Value = name });
+                cmd.ExecuteNonQuery();
+            }
+
+            return true;
+        }
     }
 }

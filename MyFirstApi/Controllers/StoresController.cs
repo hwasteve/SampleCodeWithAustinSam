@@ -36,6 +36,13 @@ namespace MyFirstApi.Controllers
                 return myStore.Name;
         }
 
+        [HttpPost(Name ="ChangeName")]
+        public Boolean UpdateName(int id, String name)
+        {
+            StoreService MyService = new StoreService();
+            return MyService.UpdateName(id, name);
+        }
+
         // POST api/<StoresController>
         [HttpPost]
         public void Post([FromBody] string value)
